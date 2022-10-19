@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:login_page/Login_page/controller.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   //final LoginController  controller = Get.put(LoginController());
 
@@ -15,70 +15,114 @@ class LoginPage extends StatelessWidget {
       init: LoginController(),
       builder: ((controller) {
         return Scaffold(
-          //App bar section
-          appBar: AppBar(
-            title: const Center(child: Text("Login_page")),
-          ),
+            //App bar section
+            appBar: AppBar(
+              title: const Center(child: Text("Login_page")),
+            ),
 
-          //App body section
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
-                    child: SizedBox(
+            //App body section
+            body: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    //app logo
+                    Container(
+                      margin: EdgeInsets.only(top: 50.0),
                       height: 100.0,
                       width: 100.0,
-                      child: Image.asset("assets/app_logo.png"),
+                      child: Image.asset("assets/images/ReceptionLogo.png"),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 40.0,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                  child: TextField(
-                    controller: controller.usernameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    SizedBox(
+                      height: 40.0,
+                    ),
+                    //Login hello user
+                    Container(
+                      child: const Text(
+                        'Hello Receptionist',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40.0,
+                            fontFamily: "cursive"),
                       ),
-                      labelText: 'Username',
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-                  child: TextField(
-                    controller: controller.passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      ),
-                      labelText: 'Password',
+                    SizedBox(
+                      height: 20.0,
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                ElevatedButton(
-                  onPressed: (() {}),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                ),
-              ],
-            ),
-          ),
 
-          //App Nav_bar section
-        );
+                    //Login form
+
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Form(
+                        key: controller.loginFormKey,
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              controller: controller.usernameController,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  labelText: "User Name",
+                                  labelStyle: TextStyle(
+                                      backgroundColor: Colors.grey[100])),
+                              validator: controller.validationUser,
+                              onChanged: (value) {
+                                controller.user = value;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 30.0,
+                            ),
+                            TextFormField(
+                              controller: controller.passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  labelText: "password",
+                                  labelStyle: TextStyle(
+                                      backgroundColor: Colors.grey[100])),
+                              validator: controller.validationPassword,
+                              onChanged: (value) {
+                                controller.password = value;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 30.0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10.0,
+                              ),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (controller.loginFormKey.currentState!
+                                      .validate()) {
+                                    controller.getDataCalling();
+                                  }
+                                },
+                                child: const Text(
+                                  "Login",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+            //App Nav_bar section
+            );
       }),
     );
   }
