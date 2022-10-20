@@ -100,10 +100,7 @@ class LoginPage extends StatelessWidget {
                                 top: 10.0,
                               ),
                               child: ElevatedButton(
-                                style: ButtonStyle(
-                                ),
-
-
+                                style: ButtonStyle(),
                                 onPressed: () {
                                   if (controller.loginFormKey.currentState!
                                       .validate()) {
