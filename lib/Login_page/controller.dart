@@ -37,6 +37,7 @@ class LoginController extends GetxController {
 
   void getDataCalling() async {
     isLoading.value = true;
+    update();
     Map<String, String> data = {
       'username': usernameController.text.toString(),
       'password': passwordController.text.toString()
@@ -52,11 +53,17 @@ class LoginController extends GetxController {
           Get.snackbar("Login Message", users.msg!,
               snackPosition: SnackPosition.BOTTOM);
           Get.to(HomePage());
+          isLoading.value = false;
+          update();
         } else {
           print(users.error!);
-          Get.snackbar("Login Message", users.msg!,
-              snackPosition: SnackPosition.BOTTOM,
-              colorText: Color.fromARGB(0, 141, 31, 236));
+          Get.snackbar(
+            "Login Message",
+            users.msg!,
+            snackPosition: SnackPosition.BOTTOM,
+          );
+          isLoading.value = false;
+          update();
         }
       }
     }

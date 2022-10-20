@@ -60,6 +60,7 @@ class LoginPage extends StatelessWidget {
                           children: <Widget>[
                             TextFormField(
                               controller: controller.usernameController,
+                              textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
@@ -78,6 +79,7 @@ class LoginPage extends StatelessWidget {
                             TextFormField(
                               controller: controller.passwordController,
                               obscureText: true,
+                              textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
@@ -98,19 +100,30 @@ class LoginPage extends StatelessWidget {
                                 top: 10.0,
                               ),
                               child: ElevatedButton(
+                                style: ButtonStyle(
+                                ),
+
+
                                 onPressed: () {
                                   if (controller.loginFormKey.currentState!
                                       .validate()) {
                                     controller.getDataCalling();
                                   }
                                 },
-                                child: const Text(
-                                  "Login",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                ),
+                                child: controller.isLoading.value
+                                    ? const CircularProgressIndicator(
+                                        color:
+                                            Color.fromARGB(255, 255, 200, 20),
+                                        strokeWidth: 3.0,
+                                      )
+                                    : const Text(
+                                        "Login",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                            color: Colors.white),
+                                      ),
                               ),
                             ),
                           ],
