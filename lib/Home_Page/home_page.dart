@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child: Card(
-             elevation: 2,
+              elevation: 2,
               child: SizedBox(
                   width: 400.0,
                   height: 80.0,
@@ -135,24 +137,27 @@ class _HomePageState extends State<HomePage> {
         ),
         const SizedBox(height: 40.0),
         Padding(
-          padding: const EdgeInsets.only(left: 120.0,right: 120.0,top: 10.0),
+          padding: const EdgeInsets.only(left: 120.0, right: 120.0, top: 10.0),
           child: ElevatedButton(
-            style: ButtonStyle(),
-            onPressed: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              children: [
-              Icon(Icons.power_settings_new_outlined),
-              SizedBox(width: 10.0,),
-              Text(
-                "Logout",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
-              ),
-            ],)
-          ),
+              style: ButtonStyle(),
+              onPressed: () {},
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.power_settings_new_outlined),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    "Logout",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white),
+                  ),
+                ],
+              )),
         ),
       ]),
 

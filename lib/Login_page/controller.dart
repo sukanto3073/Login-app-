@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -13,9 +15,30 @@ class LoginController extends GetxController {
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final passwordFocusNode=FocusNode();
+  RxString animation ="idle".obs;
 
   String user = "";
   String password = "";
+
+  void passwordFocusCheck(){
+    passwordFocusNode.addListener(() {
+       if(passwordFocusNode.hasFocus){
+         animation.value="test";
+             update();
+       }else{
+         animation.value="idle";
+         update();
+       }
+    });
+  }
+  @override
+  void onInit() {
+    passwordFocusCheck();
+    // TODO: implement onInit
+    super.onInit();
+  }
+
 
   String? validationUser(String? value) {
     if (value == null || value.isEmpty) {
@@ -43,6 +66,7 @@ class LoginController extends GetxController {
       'password': passwordController.text.toString()
     };
     String fullUrl = Urls.baseUrl + Urls.login;
+
     Map<String, String> setHeaders = {'Accept': 'application/json'};
     var response =
         await http.post(Uri.parse(fullUrl), body: data, headers: setHeaders);
@@ -50,20 +74,28 @@ class LoginController extends GetxController {
       if (response.body.isNotEmpty) {
         User users = User.fromJson(jsonDecode(response.body));
         if (users.error == false) {
+          animation.value="success";
+          update();
           Get.snackbar("Login Message", users.msg!,
               snackPosition: SnackPosition.BOTTOM);
-          Get.to(HomePage());
+          Get.to(HomePage(),duration: Duration(seconds: 2));
           isLoading.value = false;
           update();
+
         } else {
+          animation.value="fail";
+          update();
           print(users.error!);
           Get.snackbar(
             "Login Message",
             users.msg!,
             snackPosition: SnackPosition.BOTTOM,
+
           );
           isLoading.value = false;
           update();
+
+
         }
       }
     }

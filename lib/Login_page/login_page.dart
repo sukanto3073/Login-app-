@@ -1,14 +1,21 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_page/Login_page/controller.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
-  //final LoginController  controller = Get.put(LoginController());
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
+
+
+  //final LoginController  controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
@@ -27,10 +34,15 @@ class LoginPage extends StatelessWidget {
                   children: [
                     //app logo
                     Container(
-                      margin: EdgeInsets.only(top: 50.0),
-                      height: 100.0,
-                      width: 100.0,
-                      child: Image.asset("assets/images/ReceptionLogo.png"),
+
+                      height: 200,
+                      width: 200,
+                      child: CircleAvatar(
+                        child: ClipOval(
+                          child: new FlareActor("assets/images/teddy.flr",alignment: Alignment.center,fit: BoxFit.contain,animation: "${controller.animation}",),
+                        ),
+                        backgroundColor: Colors.cyan,
+                      ),
                     ),
                     SizedBox(
                       height: 40.0,
@@ -78,6 +90,7 @@ class LoginPage extends StatelessWidget {
                             ),
                             TextFormField(
                               controller: controller.passwordController,
+                              focusNode: controller.passwordFocusNode,
                               obscureText: true,
                               textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
